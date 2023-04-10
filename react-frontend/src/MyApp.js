@@ -1,8 +1,7 @@
-import React from 'react'
 import Table from './Table'
 import React, {useState} from 'react';
 
-function MyApp() {
+function MyApp() { // function MyApp() is a component, it's purpose is to return a JSX element, useState is a hook
   const [characters, setCharacters] = useState([
     {
       name: 'Charlie',
@@ -25,7 +24,7 @@ function removeOneCharacter (index) {
   const updated = characters.filter((character, i) => {
       return i !== index
     });
-    setCharacters(updated);
+    setCharacters(updated); // filter creates a new array, so we need to set the state to the new array
   }
   return (
     <div className="container">
