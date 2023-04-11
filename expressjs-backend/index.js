@@ -58,6 +58,7 @@ app.get('/users', (req, res) => {
         res.send(users);
     }
 });
+// URL for the get operation: http://localhost:8000/users?name=Mac&job=Bouncer
 
 // need to implement a hard delete operation
 app.delete('/users/:id', (req, res) => {
@@ -85,6 +86,7 @@ function deleteUser(id){
     users['users_list'] = users['users_list'].filter( (user) => user['id'] !== id);
 } // Filter out the user with the id
 
+// get users by name
 app.get('/users', (req, res) => {
     const name = req.query.name;
     if (name != undefined){
@@ -97,6 +99,8 @@ app.get('/users', (req, res) => {
     }
 });
 
+
+//get users by id
 app.get('/users/:id', (req, res) => {
     const id = req.params['id']; //or req.params.id
     let result = findUserById(id);
@@ -115,6 +119,10 @@ function findUserById(id) {
 
 const findUserByName = (name) => { 
     return users['users_list'].filter( (user) => user['name'] === name); 
+}
+
+function findUserByNameAndJob(name, job) {
+    return users['users_list'].filter( (user) => user['name'] === name && user['job'] === job);
 }
 
 app.use(express.json());
