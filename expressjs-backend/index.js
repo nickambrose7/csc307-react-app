@@ -34,6 +34,44 @@ const users = {
     ]
  }
 
+
+//  implement an additional action to get all users that match a given name and a given job.
+app.get('/users', (req, res) => {
+    const name = req.query.name;
+    const job = req.query.job;
+    if (name != undefined && job != undefined){
+        let result = findUserByNameAndJob(name, job);
+        result = {users_list: result};
+        res.send(result);
+    }
+    else if (name != undefined){
+        let result = findUserByName(name);
+        result = {users_list: result};
+        res.send(result);
+    }
+    else if (job != undefined){
+        let result = findUserByJob(job);
+        result = {users_list: result};
+        res.send(result);
+    }
+    else{
+        res.send(users);
+    }
+});
+
+// need to implement a hard delete operation
+app.delete('/users/:id', (req, res) => {
+    const id = req.params['id']; //or req.params.id
+    let result = findUserById(id);
+    if (result === undefined || result.length == 0) // check if user exists
+        res.status(404).send('Resource not found.');
+    else {
+        deleteUser(id);
+        res.status(200).end();
+    }
+});
+// URL for the delete operation: http://localhost:8000/users/abc123
+
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
     addUser(userToAdd);
@@ -43,6 +81,9 @@ app.post('/users', (req, res) => {
 function addUser(user){
     users['users_list'].push(user);
 }
+function deleteUser(id){
+    users['users_list'] = users['users_list'].filter( (user) => user['id'] !== id);
+} // Filter out the user with the id
 
 app.get('/users', (req, res) => {
     const name = req.query.name;
