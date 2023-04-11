@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 8000;
-// will it notice this change?
+app.use(express.json()); // I added this line, wasn't in the instructions
 
 const users = { 
     users_list :
@@ -34,6 +34,15 @@ const users = {
     ]
  }
 
+app.post('/users', (req, res) => {
+    const userToAdd = req.body;
+    addUser(userToAdd);
+    res.status(200).end();
+});
+
+function addUser(user){
+    users['users_list'].push(user);
+}
 
 app.get('/users', (req, res) => {
     const name = req.query.name;
