@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 8000;
-app.use(express.json()); // I added this line, wasn't in the instructions
+const cors = require('cors');
+
+app.use(cors());
+
+app.use(express.json()); // I added this line, wasn't in the instructions 
+
 
 const users = { 
     users_list :
