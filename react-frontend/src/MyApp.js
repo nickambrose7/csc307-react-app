@@ -11,9 +11,22 @@ function MyApp() { // function MyApp() is a component, it's purpose is to return
       });
       setCharacters(updated); // filter creates a new array, so we need to set the state to the new array
   }
-  function updateList(person) {
-    setCharacters([...characters, person]);
-  }
+  function updateList(person) { 
+    makePostCall(person).then( result => {
+    if (result && result.status === 201) // changed from 200 to 201
+       setCharacters([...characters, person] );
+    });
+ }
+  async function makePostCall(person){
+    try {
+       const response = await axios.post('http://localhost:8000/users', person);
+       return response;
+    }
+    catch (error) {
+       console.log(error);
+       return false;
+    }
+ }
   // fetchAll is an async function that returns a promise, an async function always returns a promise. 
   //a promise is an object that represents the eventual completion or failure of an asynchronous operation
   async function fetchAll(){
