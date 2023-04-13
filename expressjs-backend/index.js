@@ -39,6 +39,17 @@ const users = {
     ]
  }
 
+ // implement an ID generator function
+function generateId(){
+    let id = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 6; i++){
+        id += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return id;
+}
+
+
 
 //  implement an additional action to get all users that match a given name and a given job.
 app.get('/users', (req, res) => {
@@ -80,12 +91,14 @@ app.delete('/users/:id', (req, res) => {
 
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
+    userToAdd['id'] = generateId(); // add id to the user, part 2 of spec
     addUser(userToAdd);
     // res.status(200).end();
     res.status(201).end();
 });
 
 function addUser(user){
+    
     users['users_list'].push(user);
 }
 function deleteUser(id){

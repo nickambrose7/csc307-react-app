@@ -13,7 +13,7 @@ function MyApp() { // function MyApp() is a component, it's purpose is to return
   }
   function updateList(person) { 
     makePostCall(person).then( result => {
-    if (result && result.status === 201) // changed from 200 to 201
+    if (result && result.status === 201) // changed from 200 to 201, table will only update if the post was successful
        setCharacters([...characters, person] );
     });
  }
