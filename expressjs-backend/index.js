@@ -84,7 +84,7 @@ app.delete('/users/:id', (req, res) => {
         res.status(404).send('Resource not found.');
     else {
         deleteUser(id);
-        res.status(200).end();
+        res.status(204).end();
     }
 });
 // URL for the delete operation: http://localhost:8000/users/abc123
@@ -93,8 +93,8 @@ app.post('/users', (req, res) => {
     const userToAdd = req.body;
     userToAdd['id'] = generateId(); // add id to the user, part 2 of spec
     addUser(userToAdd);
-    // res.status(200).end();
-    res.status(201).end();
+    // use the http response to attach the newly added json object to the response object.
+    res.status(201).send(userToAdd); // 201 is the status code for created, part 1, 3 of spec
 });
 
 function addUser(user){
