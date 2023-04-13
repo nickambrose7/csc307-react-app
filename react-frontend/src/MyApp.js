@@ -31,14 +31,15 @@ function MyApp() { // function MyApp() is a component, it's purpose is to return
   function updateList(person) { 
     makePostCall(person).then( result => {
     if (result && result.status === 201) // changed from 200 to 201, table will only update if the post was successful
-       setCharacters([...characters, person] );
-    });
+       setCharacters([...characters, result.data] );
+    }
+    );
  }
   async function makePostCall(person){
     try {
        const response = await axios.post('http://localhost:8000/users', person);
        //update the state with the right representation of the object that we requested to be inserted, part 3 of spec
-       setCharacters([...characters, response.data] );
+      //  setCharacters([...characters, response.data] );
        return response;
     }
     catch (error) {

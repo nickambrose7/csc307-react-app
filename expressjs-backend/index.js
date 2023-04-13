@@ -50,7 +50,6 @@ function generateId(){
 }
 
 
-
 //  implement an additional action to get all users that match a given name and a given job.
 app.get('/users', (req, res) => {
     const name = req.query.name;
