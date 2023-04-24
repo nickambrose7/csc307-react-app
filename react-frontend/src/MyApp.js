@@ -19,7 +19,7 @@ function MyApp() { // function MyApp() is a component, it's purpose is to return
   }
    async function makeDeleteCall(index){ // must be a separate function because it's async, table wwouldn't update otherwise
       try {
-         const response = await axios.delete(`http://localhost:8000/users/${characters[index]['id']}`);
+         const response = await axios.delete(`http://localhost:8000/users/${characters[index]['_id']}`);
          return response;
       }
       catch (error) {
