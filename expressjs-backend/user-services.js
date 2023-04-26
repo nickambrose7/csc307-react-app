@@ -31,8 +31,10 @@ async function findUserByNameAndJob(name, job) {
 
 async function getUsers(name, job) {
   let result;
+  console.log(name, job);
   if (name === undefined && job === undefined) {
     result = await userModel.find();
+    console.log(result);
   } else if (name && !job) {
     result = await findUserByName(name);
   } else if (job && !name) {

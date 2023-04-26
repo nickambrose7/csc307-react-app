@@ -5,7 +5,7 @@ import React, {useState, useEffect} from 'react';
 
 function MyApp() { // function MyApp() is a component, it's purpose is to return a JSX element, useState is a hook
   const [characters, setCharacters] = useState([]);  
-   function removeOneCharacter (index) { // index is
+   function removeOneCharacter (index) { 
       makeDeleteCall(index).then( result => {
          if (result && result.status === 204) // changed from 200 to 201, table will only update if the post was successful
             setCharacters(characters.filter((character, i) => {
@@ -52,7 +52,7 @@ function MyApp() { // function MyApp() is a component, it's purpose is to return
   async function fetchAll(){
     try {
        const response = await axios.get('http://localhost:8000/users');
-       return response.data.users_list;     
+       return response.data;     
     }
     catch (error){
        //We're not handling errors. Just logging into the console.
